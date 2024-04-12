@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -55,5 +57,11 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable UUID id) {
         employeeService.deleteEmployee(id);
+    }
+
+
+    @PutMapping("{id}/photo")
+    public Employee updateEmployeePhoto(@PathVariable UUID id, @RequestParam("photo") MultipartFile photo) throws IOException {
+        return employeeService.updateEmployeePhoto(id, photo);
     }
 }

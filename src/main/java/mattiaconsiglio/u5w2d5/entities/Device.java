@@ -27,6 +27,12 @@ public class Device {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
+    public Device(String name, String type, String description, DeviceStatus status) {
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.type = type;
+    }
 
     public Device(String name, String type, String description, DeviceStatus status, Employee employee) {
         this.name = name;
