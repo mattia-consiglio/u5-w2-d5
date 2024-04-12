@@ -39,21 +39,21 @@ public class DeviceService {
     }
 
     public Device updateDevice(UUID id, DeviceDTO deviceDTO) {
-        System.err.println(deviceDTO);
+        DeviceStatus status = DeviceStatus.valueOf(deviceDTO.status());
         Device device = this.getDevice(id);
         device.setName(deviceDTO.name());
         device.setType(deviceDTO.type());
         device.setDescription(deviceDTO.description());
-        if (deviceDTO.status() == DeviceStatus.ASSIGNED && deviceDTO.employeeId() == null) {
+        if (status == DeviceStatus.ASSIGNED && deviceDTO.employeeId() == null) {
             throw new BadRequestException("Employee is required for assigning a device");
         } else {
-            device.setStatus(deviceDTO.status());
+            device.setStatus(status);
         }
 
         if (deviceDTO.employeeId() != null) {
             Employee employee = employeeService.getEmployee(deviceDTO.employeeId());
             device.setEmployee(employee);
-            if (deviceDTO.status() == DeviceStatus.DISPOSED) {
+            if (status == DeviceStatus.DISPOSED) {
                 throw new BadRequestException("Device can't be disposed if it's assigned to an employee");
             }
 

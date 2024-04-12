@@ -2,9 +2,8 @@ package mattiaconsiglio.u5w2d5.dtos;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import mattiaconsiglio.u5w2d5.entities.DeviceStatus;
 
 import java.util.UUID;
 
@@ -16,8 +15,11 @@ public record DeviceDTO(
         String type,
         @NotBlank(message = "Device description (description) is required")
         String description,
-        @NotNull(message = "Device status (status) is required")
-        DeviceStatus status,
+        @NotBlank(message = "Device status (status) is required")
+        @Pattern(regexp = "AVILABLE|ASSIGNED|MAINTENANCE|DISPOSED", message = "Device status (status) must be one of the following: AVILABLE, ASSIGNED, MAINTENANCE, DISPOSED")
+        // Ho cercato di rendere dinamico il pattern ma non ho trovato una soluzione.
+        //Ho provato con String.join("|", Arrays.stream(DeviceStatus.values()).map(Enum::name).toArray(String[]::new)) ma dice che il parametro deve essere una costante
+        String status,
         @Nullable
         UUID employeeId
 ) {
