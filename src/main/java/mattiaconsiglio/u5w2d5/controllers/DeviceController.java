@@ -58,4 +58,10 @@ public class DeviceController {
     public void deleteDevice(@PathVariable UUID id) {
         deviceService.deleteDevice(id);
     }
+
+
+    @PatchMapping("{id}/employee/{employeeId}")
+    public Device assignDeviceToEmployee(@PathVariable UUID id, @PathVariable UUID employeeId) {
+        return deviceService.assignDeviceToEmployee(id, employeeId);
+    }
 }

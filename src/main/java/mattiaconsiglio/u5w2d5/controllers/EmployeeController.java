@@ -64,4 +64,5 @@ public class EmployeeController {
     public Employee updateEmployeePhoto(@PathVariable UUID id, @RequestParam("photo") MultipartFile photo) throws IOException {
         return employeeService.updateEmployeePhoto(id, photo);
     }
+
 }

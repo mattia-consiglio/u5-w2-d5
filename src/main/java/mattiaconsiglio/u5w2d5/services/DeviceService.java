@@ -71,4 +71,12 @@ public class DeviceService {
         Device device = this.getDevice(id);
         deviceRepository.delete(device);
     }
+
+
+    public Device assignDeviceToEmployee(UUID id, UUID employeeId) {
+        Device device = this.getDevice(id);
+        Employee employee = employeeService.getEmployee(employeeId);
+        device.setEmployee(employee);
+        return deviceRepository.save(device);
+    }
 }
